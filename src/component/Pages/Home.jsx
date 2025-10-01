@@ -1,6 +1,55 @@
 import { Container, GradientText, PrimaryButton, SectionTitle, Stat, ServicesCarousel, TeamStrip, ContactForm } from "../UI/UiComponent";
 
+import { useState,useEffect } from "react";
+
+
+
+
 export default function Home() {
+  const videos = [
+  "/videos/video1.mp4",
+  "/videos/video2.mov",
+  "/videos/video3.MP4",
+  "/videos/bg1.mp4",
+  "/videos/video4.mov",
+];
+ const [currentIndex, setCurrentIndex] = useState(0);
+  const [mutedStates, setMutedStates] = useState(videos.map(() => true)); // sab mute by default
+
+  // ✅ Responsive visible slides
+  const getVisibleSlides = () => {
+    if (window.innerWidth < 640) return 1; // mobile
+    if (window.innerWidth < 1024) return 2; // tablet
+    return 4; // desktop
+  };
+
+  const [visibleSlides, setVisibleSlides] = useState(getVisibleSlides());
+
+  useEffect(() => {
+    const handleResize = () => setVisibleSlides(getVisibleSlides());
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const nextSlide = () => {
+    if (currentIndex < videos.length - visibleSlides) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
+  const prevSlide = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+
+  // ✅ Ek hi video unmute rahe
+  const toggleMute = (index) => {
+    setMutedStates((prev) =>
+      prev.map((_, i) => (i === index ? !prev[i] : true)) // sirf current video toggle hoga, baaki sab mute
+    );
+  };
+
   return (
     <>
          <div className="min-h-screen bg-neutral-950 text-white selection:bg-sky-400/30 ">
@@ -36,6 +85,71 @@ export default function Home() {
                </div>
              </Container>
            </section>
+
+
+        {/* Video Carousel  */}
+          <section>
+            <Container>
+                <div className="relative w-full bg-black py-10 overflow-hidden">
+      {/* Videos Container */}
+      <div
+        className="flex transition-transform duration-500 ease-in-out"
+        style={{
+          transform: `translateX(-${(currentIndex * 100) / visibleSlides}%)`,
+        }}
+      >
+        {videos.map((video, idx) => (
+          <div
+            key={idx}
+            className="relative flex-shrink-0 w-full sm:w-1/2 lg:w-1/4 px-2"
+          >
+            <div className="relative w-full aspect-[9/16] bg-black rounded-[2rem] border-[8px] border-neutral-800 shadow-xl overflow-hidden">
+              {/* Video */}
+              <video
+                src={video}
+                className="w-full h-full object-cover"
+                autoPlay
+                loop
+                muted={mutedStates[idx]}
+              />
+
+              {/* Mute/Unmute Button */}
+              <button
+                onClick={() => toggleMute(idx)}
+                className="absolute top-2 right-2 bg-black/60 text-white p-2 rounded-full text-xs hover:bg-black transition"
+              >
+                {mutedStates[idx] ? "🔇" : "🔊"}
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Left Arrow */}
+      {currentIndex > 0 && (
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/70 text-white p-3 rounded-full hover:bg-black transition"
+        >
+          ◀
+        </button>
+      )}
+
+      {/* Right Arrow */}
+      {currentIndex < videos.length - visibleSlides && (
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/70 text-white p-3 rounded-full hover:bg-black transition"
+        >
+          ▶
+        </button>
+      )}
+    </div>
+
+            </Container>
+           </section>
+
+
      
            {/* KPI Grid */}
            <section className="py-12 sm:py-16">
@@ -103,6 +217,8 @@ export default function Home() {
                </div>
              </Container>
            </section>
+
+         
      
            {/* Team CTA */}
            <section className="py-12 sm:py-16">
