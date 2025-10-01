@@ -10,8 +10,8 @@ export default function Home() {
   "/videos/video1.mp4",
   "/videos/video2.mov",
   "/videos/video3.MP4",
-  "/videos/bg1.mp4",
   "/videos/video4.mov",
+  "/videos/bg1.mp4",
 ];
  const [currentIndex, setCurrentIndex] = useState(0);
   const [mutedStates, setMutedStates] = useState(videos.map(() => true)); // sab mute by default
