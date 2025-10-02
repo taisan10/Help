@@ -20,6 +20,24 @@ export default function Header() {
     { label: "Work", href: "/work" },
     { label: "Company", href: "/company" },
   ];
+const [showNavbar, setShowNavbar] = useState(true);
+const lastScrollY = useRef(0);
+
+useEffect(() => {
+  function handleScroll() {
+    if (window.scrollY > lastScrollY.current) {
+      // 👇 user scrolls down → hide navbar
+      setShowNavbar(false);
+    } else {
+      // 👇 user scrolls up → show navbar
+      setShowNavbar(true);
+    }
+    lastScrollY.current = window.scrollY;
+  }
+
+  window.addEventListener("scroll", handleScroll);
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
 
   // 👇 Close dropdown when clicking outside
   useEffect(() => {
@@ -33,9 +51,13 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="sticky top-10 z-40 bg-transparent ">
+    <header
+      className={`sticky top-10 z-40 transition-transform duration-300 ${
+        showNavbar ? "translate-y-0" : "-translate-y-[calc(100%+2.5rem)]"
+      }`}
+    >
       <Container>
-        <div className="flex h-14 sm:h-20 items-center justify-between rounded-full bg-white pl-3 pr-2 sm:px-4 md:px-6 ring-1 ring-black/10 shadow-sm">
+        <div className="flex h-14 sm:h-18 items-center justify-between rounded-full bg-white pl-3 pr-2 sm:px-4 md:px-6 ring-1 ring-black/10 shadow-sm">
           {/* Logo */}
           <a href="/" aria-label="Go to homepage">
             <Logo />
@@ -105,7 +127,11 @@ export default function Header() {
                 stroke="currentColor"
                 className="text-black"
               >
-                <path d="M3 6h18M3 12h18M3 18h18" strokeWidth="2" strokeLinecap="round" />
+                <path
+                  d="M3 6h18M3 12h18M3 18h18"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
               </svg>
             </button>
           </div>

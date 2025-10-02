@@ -103,7 +103,7 @@ export default function Home() {
             key={idx}
             className="relative flex-shrink-0 w-full sm:w-1/2 lg:w-1/4 px-2"
           >
-            <div className="relative w-full aspect-[9/16] bg-black rounded-[2rem] border-[8px] border-neutral-800 shadow-xl overflow-hidden">
+            <div className="relative w-full aspect-[9/16] bg-black rounded-[2rem] border-[1px] border-neutral-800 shadow-xl overflow-hidden">
               {/* Video */}
               <video
                 src={video}

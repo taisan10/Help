@@ -1,31 +1,3 @@
-// // import BluenoseMarketingSite from "./component/Home"
-// import {
-//   HeroSection,
-//   ChallengesSection,
-//   BestServicesCarousel,
-//   RatingSection,
-//   PlanSection,
-//   ContactSection,
-
-// } from "./component/Sections";
-
-// function App() {
-
-//   return (
-//     <>
-//     {/* <BluenoseMarketingSite /> */}
-//      <div className="space-y-0">
-//       <HeroSection />
-//       <ChallengesSection />
-//       <BestServicesCarousel />
-//       <PlanSection />
-//       <RatingSection />
-//       <ContactSection />
-//     </div>
-
-//     </>
-//   )
-// }
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./component/layout/Layout";
