@@ -202,10 +202,6 @@ const Work = () => (
   <div>
     <HeroSection />
     <CaseStudyLayout />
-    
-    {/* <ServicesProvidedSection /> */}
-    {/* <ChallengeSection /> */}
-    {/* <ApproachSection /> */}
   </div>
 );
 
