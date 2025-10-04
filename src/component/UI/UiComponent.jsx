@@ -56,19 +56,25 @@ export   function PrimaryButton({ children, href = "#" }) {
 }
 
 // KPI Card
- export   function Stat({ kpi, accent, title, desc }) {
+//  export   function Stat({ kpi, accent, title, desc }) {
+//   const accentClasses = {
+//     purple: "bg-gradient-to-r from-sky-400 via-cyan-400",
+//     pink: "from-pink-400 to-rose-400",
+//     orange: "from-orange-400 to-amber-400",
+//     sky: "from-sky-400 to-cyan-400",
+//   };
+
+export   function Stat({ kpi, accent, title, desc }) {
   const accentClasses = {
-    purple: "from-fuchsia-400 to-violet-400",
-    pink: "from-pink-400 to-rose-400",
-    orange: "from-orange-400 to-amber-400",
-    sky: "from-sky-400 to-cyan-400",
+    purple: " from-sky-400 to-cyan-400",
+   
   };
   return (
     <div className="rounded-[22px] bg-white/5 p-6 sm:p-8 ring-5 ring-white/12 shadow-[0_1px_0_0_rgba(255,255,255,0.05)_inset]">
-      <div className="text-4xl sm:text-5xl font-semibold tracking-tight">
+      <div className="text-4xl sm:text-6xl font-semibold tracking-tight">
         {kpi}
       </div>
-      <div className="mt-3 text-base font-medium">
+      <div className="mt-3 text-2xl font-medium">
         <span
           className={`bg-gradient-to-r ${
             accentClasses[accent] || accentClasses.purple
@@ -167,7 +173,7 @@ export function ServicesCarousel() {
 
   return (
     <div
-      className="relative w-full overflow-hidden py-12 bg-black text-white"
+      className="relative w-full overflow-hidden py-12  text-white"
       onMouseEnter={stopAutoSlide}
       onMouseLeave={startAutoSlide}
     >
@@ -193,7 +199,7 @@ export function ServicesCarousel() {
                     >
                       {tag}
                     </span>
-                  ))}
+                  ))}   
                 </div>
               </div>
             </div>
@@ -317,124 +323,57 @@ export function MobileNav({ open, setOpen, navItems }) {
 }
 
 
-export function ContactForm() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
 
-  const [loading, setLoading] = useState(false);
 
-  // Input change handler
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  // Submit handler
-  const handleSubmit = async (e) => {
-    e.prevent ();
-    setLoading(true);
-
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/contact`, // 🌍 Env-based API URL
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
-
-      if (response.ok) {
-        alert("✅ Form submitted successfully!");
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          phone: "",
-          message: "",
-        });
-      } else {
-        alert("❌ Failed to submit form.");
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("⚠️ Something went wrong!");
-    } finally {
-      setLoading(false);
-    }
-  };
+// Continuous marquee for client logos (only images)
+export function LogosMarquee({ items = [] }) {
+  const rows = [items, [...items].reverse()];
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="grid grid-cols-1 gap-3 sm:gap-4 text-neutral-900"
-    >
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-        <input
-          name="firstName"
-          value={formData.firstName}
-          onChange={handleChange}
-          className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm"
-          placeholder="First Name*"
-          required
-        />
-        <input
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleChange}
-          className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm"
-          placeholder="Last Name"
-        />
-      </div>
-
-      <input
-        name="email"
-        type="email"
-        value={formData.email}
-        onChange={handleChange}
-        placeholder="Work Email*"
-        className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm"
-        required
+    <div className="relative overflow-hidden">
+      {/* edge gradients */}
+      <div
+        aria-hidden={true}
+        className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-neutral-950 to-transparent"
+      />
+      <div
+        aria-hidden={true}
+        className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-neutral-950 to-transparent"
       />
 
-      <div className="flex gap-2">
-        <select className="w-24 rounded-xl border border-neutral-200 bg-white px-3 py-3 text-sm">
-          <option>+1</option>
-          <option>+44</option>
-          <option>+91</option>
-        </select>
-        <input
-          name="phone"
-          value={formData.phone}
-          onChange={handleChange}
-          placeholder="Phone (optional)"
-          className="flex-1 rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm"
-        />
-      </div>
+      {/* keyframes */}
+      <style>{`
+        @keyframes marqueeX {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+      `}</style>
 
-      <textarea
-        name="message"
-        value={formData.message}
-        onChange={handleChange}
-        placeholder="What tasks would you like to solve?"
-        className="min-h-[120px] rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm"
-      />
-
-      <button
-        type="submit"
-        disabled={loading}
-        className="rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-6 py-3 text-sm font-medium text-white shadow-lg disabled:opacity-50"
-      >
-        {loading ? "Submitting..." : "Book a demo"}
-      </button>
-    </form>
+      {rows.map((row, i) => (
+        <div key={i} className="flex overflow-hidden">
+          <div
+            className="flex shrink-0 items-center gap-8 sm:gap-12 py-6 animate-[marqueeX_linear_infinite]"
+            style={{
+              animationDuration: i === 0 ? "28s" : "32s",
+              animationDirection: i === 1 ? "reverse" : "normal",
+              width: "200%",
+            }}
+          >
+            {[...row, ...row].map((src, idx) => (
+              <div
+                key={idx}
+                className="h-8 sm:h-19 opacity-80 hover:opacity-100 transition"
+              >
+                <img
+                  src={src}
+                  alt={`logo-${idx}`}
+                  className="h-full w-auto object-contain"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }
-
-
-

@@ -108,12 +108,12 @@ useEffect(() => {
 
           {/* CTA */}
           <div className="hidden md:block">
-            <PrimaryButton href="#contact">Book Intro Call</PrimaryButton>
+            <PrimaryButton href="#contact">Contact Us Now</PrimaryButton>
           </div>
 
           {/* Mobile Actions */}
           <div className="flex items-center gap-2 md:hidden">
-            <PrimaryButton href="#contact">Book</PrimaryButton>
+            <PrimaryButton href="#contact">Contact Us</PrimaryButton>
             <button
               aria-label="Open menu"
               className="grid h-10 w-10 place-items-center rounded-full ring-1 ring-black/10"

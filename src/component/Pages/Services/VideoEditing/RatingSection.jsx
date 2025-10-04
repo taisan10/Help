@@ -1,6 +1,7 @@
 import { useState} from "react";
 
 import {Container} from "../../../UI/UiComponent"
+import ContactPage from "../../../UI/Contactpage";
 
 
 // ⭐ Custom Icons (SVG)
@@ -97,6 +98,7 @@ export  function RatingSection() {
   };
 
   return (
+    <>
     <section className="bg-black text-white py-16 px-4 md:px-12">
       <Container>
       {/* Heading */}
@@ -113,7 +115,7 @@ export  function RatingSection() {
             <a
               href="/"
               className="text-sm underline hover:text-blue-600"
-            >
+              >
               View our profile
             </a>
           </div>
@@ -153,7 +155,7 @@ export  function RatingSection() {
           className="bg-neutral-900 rounded-xl p-6 md:w-2/3 flex flex-col justify-between relative"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
-        >
+          >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Left Part */}
             <div>
@@ -185,12 +187,12 @@ export  function RatingSection() {
 <div className="flex items-center gap-3">
   {reviews[current].clientLogo ? (
     <img
-      src={reviews[current].clientLogo}
-      alt="Client Logo"
-      className="w-8 h-8 rounded-full border border-gray-600"
-      onError={(e) => {
-        e.target.style.display = "none"; // agar image load na ho
-      }}
+    src={reviews[current].clientLogo}
+    alt="Client Logo"
+    className="w-8 h-8 rounded-full border border-gray-600"
+    onError={(e) => {
+      e.target.style.display = "none"; // agar image load na ho
+    }}
     />
   ) : (
     // Fallback avatar
@@ -220,7 +222,7 @@ export  function RatingSection() {
               <button
                 onClick={nextSlide}
                 className="p-3 rounded-full border border-gray-600 hover:bg-gray-700 transition"
-              >
+                >
                 <RightArrow className="w-6 h-6 text-white" />
               </button>
             </div>
@@ -229,10 +231,10 @@ export  function RatingSection() {
             <div className="flex mt-4 gap-2">
               {reviews.map((_, i) => (
                 <div
-                  key={i}
-                  className={`h-2 w-2 rounded-full ${
-                    current === i ? "bg-yellow-400" : "bg-gray-600"
-                  }`}
+                key={i}
+                className={`h-2 w-2 rounded-full ${
+                  current === i ? "bg-yellow-400" : "bg-gray-600"
+                }`}
                 />
               ))}
             </div>
@@ -241,5 +243,9 @@ export  function RatingSection() {
       </div>
       </Container>
     </section>
+              
+              <ContactPage />
+              
+              </>
   );
 }

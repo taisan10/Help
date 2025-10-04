@@ -1,6 +1,7 @@
 import { useState} from "react";
 
 import {Container} from "../../../UI/UiComponent"
+import ContactPage from "../../../UI/Contactpage";
 
 
 // ⭐ Custom Icons (SVG)
@@ -97,6 +98,8 @@ export  function RatingSection() {
   };
 
   return (
+    <>
+    
     <section className="bg-black text-white py-16 px-4 md:px-12">
       <Container>
       {/* Heading */}
@@ -241,5 +244,8 @@ export  function RatingSection() {
       </div>
       </Container>
     </section>
+
+    <ContactPage />
+    </>
   );
 }

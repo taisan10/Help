@@ -1,6 +1,6 @@
 import { BestServicesCarousel } from "../BestServicesCarousel";
 import { ChallengesSection } from "../ChallengesSection";
-import { ContactSection } from "../Contact";
+
 import { HeroSection } from "../HeroSection";
 import { PlanSection } from "../PlanSection";
 import { RatingSection } from "../RatingSection";
@@ -16,7 +16,7 @@ export default function VideoEditing() {
   <PlanSection />
   <RatingSection />
   <Team />
-  <ContactSection />
+  
 
   </>
   )
